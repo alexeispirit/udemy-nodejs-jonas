@@ -38,15 +38,6 @@ const deleteData = async () => {
   process.exit();
 };
 
-const loadData = async () => {
-  try {
-    const toursx = await Tour.find();
-    console.log(toursx);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
@@ -54,7 +45,6 @@ mongoose
     useFindAndModify: false
   })
   .then(() => {
-    loadData();
     console.log('DB connection successful');
     if (process.argv[2] === '--import') {
       importData();
