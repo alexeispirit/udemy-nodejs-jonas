@@ -69,7 +69,8 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {
-    expiresIn: new Date(Date.now + 10 * 1000),
+    // expires: new Date(Date.now() + 10 * 1000),
+    maxAge: 100,
     httpOnly: true
   });
   res.status(200).json({ status: 'success' });
@@ -111,6 +112,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
   // 5. grant access to protected route
   req.user = currentUser;
+  res.locals.user = currentUser;
   next();
 });
 
